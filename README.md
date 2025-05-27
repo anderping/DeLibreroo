@@ -2,7 +2,7 @@
 ### Tu compañero inteligente para explorar el universo de los libros y descubrir tu próxima lectura favorita.
 
 <p align="center">
-  <img src="DeLibreroo.png" alt="DeLibreroo Logo" width="350"/>
+  <img src="DeLibreroo.png" alt="DeLibreroo Logo" width="300"/>
 </p>
 
 ---
