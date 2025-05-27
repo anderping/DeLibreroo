@@ -24,29 +24,48 @@ cosine_sim = load_npz("cosine_sim_matrix.npz")
 # os.chdir(os.path.dirname(__file__))
 
 
-# Recomendador simple basado en contenido
-def get_recommendations(genre_input, top_n=5):
-    genre_vec = tfidf_vectorizer.transform([genre_input])
-    similarity_scores = cosine_sim.dot(genre_vec.T).toarray().ravel()
-    top_indices = similarity_scores.argsort()[::-1][:top_n]
-
-    return df.iloc[top_indices][['title', 'genre']].to_dict(orient='records')
-
-
 # End Point "/"
 @app.route('/', methods=['GET'])
 def home():
     return "<h1>DeLibreroo</h1><p>Esta es una API para recomendar libros a manos de nuestro erudito lector IbAI.</p>"
 
 
-@app.route('/', methods=['GET', 'POST'])
-def recommend():
-    if request.method == 'POST':
-        genre = request.form['genre']  # recoge el dato del formulario
-        recomendaciones = get_recommendations(genre)
+# Función de recomendación híbrida
+def get_recommendations_based_on_book_and_genre(selected_title, selected_genre, top_n=5):
+    # Filtrar por género
+    df_genre = df[df['genre'] == selected_genre].reset_index(drop=True)
+    
+    # Asegurar que el libro esté en el subconjunto
+    if selected_title not in df_genre['title'].values:
+        return []
 
-        return render_template('index.html', recomendaciones=recomendaciones)
-    return render_template('index.html', recomendaciones=None)
+    # Obtener índice del libro
+    idx = df_genre[df_genre['title'] == selected_title].index[0]
+
+    # Recalcular similitud dentro del género
+    genre_texts = df_genre['combined_text']  # O lo que uses para la vectorización
+    genre_matrix = tfidf_vectorizer.transform(genre_texts)
+    similarities = genre_matrix.dot(genre_matrix[idx].T).toarray().ravel()
+
+    top_indices = similarities.argsort()[::-1][1:top_n + 1]  # Omitimos el libro base
+    return df_genre.iloc[top_indices][['title', 'genre']].to_dict(orient='records')
+
+
+@app.route('/recommend', methods=['GET', 'POST'])
+def recommend():
+    generos = sorted(df['genre'].dropna().unique())
+    libros = sorted(df['title'].dropna().unique())
+    
+    recomendaciones = []
+
+    if request.method == 'POST':
+        genero = request.form.get('genre')
+        libro = request.form.get('book')
+        # Aquí puedes generar recomendaciones con esos datos
+        # recomendaciones = get_recommendations(genero, libro)
+
+    return render_template('main.html', generos=generos, libros=libros, recomendaciones=recomendaciones)
+
 
 
 # @app.route('/v1/predict', methods=['GET'])
