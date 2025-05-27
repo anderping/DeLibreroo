@@ -40,7 +40,7 @@ def home():
 
 
 @app.route('/', methods=['GET', 'POST'])
-def predict():
+def recommend():
     if request.method == 'POST':
         genre = request.form['genre']  # recoge el dato del formulario
         recomendaciones = get_recommendations(genre)
