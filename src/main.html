@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recomendador de Libros</title>
   <!-- Si usas Flask, por ejemplo: -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container">
-    <h1>Recomendador de Libros</h1>
 
-    <form id="recommender-form" action="/recomendar" method="post">
-      <label for="genre">Género:</label>
-      <select id="genre" name="genre" required>
-        <option value="">--Selecciona un género--</option>
-        {% for genre in generos %}
-          <option value="{{ genre.slug }}">{{ genre.name }}</option>
-        {% endfor %}
-      </select>
-      <button type="submit">Recomendar</button>
-    </form>
-    
-    {% if recomendaciones %}
-      <h2>Recomendaciones:</h2>
-      <ul>
-        {% for libro in recomendaciones %}
-          <li><strong>{{ libro.title }}</strong> ({{ libro.genre }})</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+<body>
+  <h1>Escoge un género y un libro que hayas leído</h1>
+  <form method="post">
+    <label for="genre">Género:</label>
+    <select name="genre" id="genre">
+      {% for genero in generos %}
+      <option value="{{ genero }}">{{ genero }}</option>
+      {% endfor %}
+    </select>
+    <label for="book">Libro:</label>
+    <select name="book" id="book">
+      {% for libro in libros %}
+      <option value="{{ libro }}">{{ libro }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Buscar recomendaciones</button>
+  </form>
+  {% if recomendaciones %}
+  <h2>Recomendaciones:</h2>
+  <ul>
+    {% for libro in recomendaciones %}
+    <li>{{ libro.title }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 </body>
+
 </html>
