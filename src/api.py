@@ -1,21 +1,36 @@
-# import pandas as pd
-# import numpy as np
 # from sklearn.model_selection import train_test_split, cross_val_score
 # from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 # from sklearn.linear_model import Lasso
-# import pickle
+
 # import os
+
 from flask import Flask, request, render_template
+import pandas as pd
+import pickle
+from scipy.sparse import load_npz
 
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
+
+df = pd.read_parquet("df_combined_books_final.parquet")
+tfidf_vectorizer = pickle.load(open("tfidf_vectorizer.pkl", "rb"))
+cosine_sim = load_npz("cosine_sim_matrix.npz")
 
 # print("El fichero que se está ejecutando es:")
 # print(__file__)
 # print("... que está en el directorio:")
 # print(os.path.dirname(__file__))
 # os.chdir(os.path.dirname(__file__))
+
+
+# Recomendador simple basado en contenido
+def get_recommendations(genre_input, top_n=5):
+    genre_vec = tfidf_vectorizer.transform([genre_input])
+    similarity_scores = cosine_sim.dot(genre_vec.T).toarray().ravel()
+    top_indices = similarity_scores.argsort()[::-1][:top_n]
+
+    return df.iloc[top_indices][['title', 'genre']].to_dict(orient='records')
 
 
 # End Point "/"
@@ -28,9 +43,10 @@ def home():
 def predict():
     if request.method == 'POST':
         genre = request.form['genre']  # recoge el dato del formulario
+        recomendaciones = get_recommendations(genre)
 
-        return render_template('index.html', resultado=genre)
-    return render_template('index.html', resultado=None)
+        return render_template('index.html', recomendaciones=recomendaciones)
+    return render_template('index.html', recomendaciones=None)
 
 
 # @app.route('/v1/predict', methods=['GET'])
