@@ -21,7 +21,7 @@ app.config["DEBUG"] = True
 # End Point "/"
 @app.route('/', methods=['GET'])
 def home():
-    return "<h1>DeLibroo</h1><p>Esta es una API para recomendar libros a manos de nuestro erudito lector IbAI.</p>"
+    return "<h1>DeLibreroo</h1><p>Esta es una API para recomendar libros a manos de nuestro erudito lector IbAI.</p>"
 
 
 @app.route('/', methods=['GET', 'POST'])
