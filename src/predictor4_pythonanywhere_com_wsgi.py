@@ -1,5 +1,5 @@
 # This file contains the WSGI configuration required to serve up your
-# web application at http://tallerdespliegue.pythonanywhere.com/
+# web application at http://predictor4.pythonanywhere.com/
 # It works by setting the variable 'application' to a WSGI handler of some
 # description.
 #
@@ -64,7 +64,7 @@ def application(environ, start_response):
 #
 #import sys
 #
-#path = '/home/tallerdespliegue/path/to/my/app
+#path = '/home/predictor4/path/to/my/app
 #if path not in sys.path:
 #    sys.path.append(path)
 #
@@ -76,9 +76,9 @@ def application(environ, start_response):
 #import os
 #import sys
 #
-## assuming your django settings file is at '/home/tallerdespliegue/mysite/mysite/settings.py'
-## and your manage.py is is at '/home/tallerdespliegue/mysite/manage.py'
-#path = '/home/tallerdespliegue/mysite'
+## assuming your django settings file is at '/home/predictor4/mysite/mysite/settings.py'
+## and your manage.py is is at '/home/predictor4/mysite/manage.py'
+#path = '/home/predictor4/mysite'
 #if path not in sys.path:
 #    sys.path.append(path)
 #
@@ -96,16 +96,15 @@ def application(environ, start_response):
 # may need to rename it during the import:
 #
 #
-import sys
-
-# The "/home/tallerdespliegue" below specifies your home
-# directory -- the rest should be the directory you uploaded your Flask
-# code to underneath the home directory.  So if you just ran
-# "git clone git@github.com/myusername/myproject.git"
-# ...or uploaded files to the directory "myproject", then you should
-# specify "/home/tallerdespliegue/myproject"
-
-path = '/home/tallerdespliegue/DeLibreroo/src/'
+#import sys
+#
+## The "/home/predictor4" below specifies your home
+## directory -- the rest should be the directory you uploaded your Flask
+## code to underneath the home directory.  So if you just ran
+## "git clone git@github.com/myusername/myproject.git"
+## ...or uploaded files to the directory "myproject", then you should
+## specify "/home/predictor4/myproject"
+path = '/home/predictor4/DeLibreroo/src/api'
 if path not in sys.path:
     sys.path.append(path)
 #
