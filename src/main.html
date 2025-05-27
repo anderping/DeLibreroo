@@ -1,0 +1,60 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomendador de Libros</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recomendador de Libros</h1>
+        <form id="recommender-form">
+            <label for="genre">Género:</label>
+            <select id="genre" name="genre">
+                <option value="">--Selecciona un género--</option>
+                <option value="fantasia">Fantasía</option>
+                <option value="ciencia-ficcion">Ciencia Ficción</option>
+                <option value="misterio">Misterio</option>
+                <option value="romance">Romance</option>
+            </select>
+            <button type="submit">Recomendar</button>
+        </form>
+        <div id="recommendations">
+            <!-- Aquí aparecerán las recomendaciones -->
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo: libros por género
+        const recommendations = {
+            'fantasia': ['El Hobbit', 'Juego de Tronos', 'Harry Potter y la piedra filosofal'],
+            'ciencia-ficcion': ['Dune', 'Neuromante', 'Fundación'],
+            'misterio': ['La chica del tren', 'El nombre de la rosa', 'Perdida'],
+            'romance': ['Orgullo y prejuicio', 'Bajo la misma estrella', 'El cuaderno de Noah']
+        };
+
+        // Lógica para mostrar recomendaciones
+        document.getElementById('recommender-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const genre = document.getElementById('genre').value;
+            const container = document.getElementById('recommendations');
+            container.innerHTML = '';
+
+            if (genre && recommendations[genre]) {
+                const list = document.createElement('ul');
+                recommendations[genre].forEach(book => {
+                    const item = document.createElement('li');
+                    item.textContent = book;
+                    list.appendChild(item);
+                });
+                container.appendChild(list);
+            } else {
+                container.textContent = 'Por favor, selecciona un género.';
+            }
+        });
+    </script>
+</body>
+</html>
