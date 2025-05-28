@@ -199,9 +199,11 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(err => { throw new Error(err.error || 'Error del servidor'); });
+    .then(async response => {
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            const text = await response.text();
+            throw new Error("Respuesta inesperada del servidor:\n" + text);
         }
         return response.json();
     })
