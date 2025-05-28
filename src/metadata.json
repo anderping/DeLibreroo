@@ -1,0 +1,43 @@
+{
+    "original_columns": [
+        "gear_count",
+        "weight_kg",
+        "frame_material",
+        "year",
+        "wheel_diameter_mm",
+        "electronic_shifting",
+        "brake_type",
+        "price_usd",
+        "bike_brand_Cannondale",
+        "bike_brand_Canyon",
+        "bike_brand_Cube",
+        "bike_brand_Giant",
+        "bike_brand_Merida",
+        "bike_brand_Orbea",
+        "bike_brand_Scott",
+        "bike_brand_Specialized",
+        "bike_brand_Trek",
+        "gear_brand_SRAM",
+        "gear_brand_Shimano"
+    ],
+    "categorical_mapping": {
+        "bike_brand": [
+            "Giant",
+            "BH",
+            "Cube",
+            "Orbea",
+            "Trek",
+            "Canyon",
+            "Scott",
+            "Merida",
+            "Specialized",
+            "Cannondale"
+        ],
+        "gear_brand": [
+            "Campagnolo",
+            "SRAM",
+            "Shimano"
+        ]
+    },
+    "drop_first": true
+}
