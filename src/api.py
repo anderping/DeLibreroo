@@ -2,14 +2,18 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS  # Importa CORS
 import pandas as pd
 import pickle
+import os
 
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # Cargar el modelo
 try:
     with open('modelo_bicicletas.pkl', 'rb') as f:
         model_data = pickle.load(f)
+    print(model_data)  # Imprime el contenido del modelo para depuración
     model = model_data['model']
     original_columns = model_data['original_columns']
     categorical_mapping = model_data['categorical_mapping']
@@ -17,6 +21,10 @@ try:
 except Exception as e:
     print(f"Error cargando el modelo: {e}")
     model = None
+
+print(original_columns)
+print(categorical_mapping)
+print(drop_first)
 
 # Ruta principal que sirve el formulario HTML
 @app.route('/')
