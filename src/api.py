@@ -20,11 +20,9 @@ try:
     with open('metadata.json', 'r', encoding='utf-8') as f:
         metadata = json.load(f)
 
-    print("AQUI ESTOY")
     original_columns = metadata['original_columns']
     categorical_mapping = metadata['categorical_mapping']
     drop_first = metadata['drop_first']
-    print("AQUI ESTOY 2")
 except Exception as e:
     print(f"Error cargando el modelo: {e}")
     model = None
@@ -41,7 +39,8 @@ def predict():
         if model is None:
             raise ValueError("Modelo no cargado")
         
-        data = request.get_json()  # Usa get_json() en lugar de request.json
+        print(request.data)
+        data = request.get_json(force=True)  # Usa get_json() en lugar de request.json
         print("Datos recibidos del frontend:", data)
 
         # Validación de campos
