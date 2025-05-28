@@ -30,6 +30,9 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        if model is None:
+            raise ValueError("Modelo no cargado")
+        
         data = request.get_json()  # Usa get_json() en lugar de request.json
         print("Datos recibidos del frontend:", data)
 
