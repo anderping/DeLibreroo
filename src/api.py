@@ -45,7 +45,7 @@ def predict():
         # 2. Aplicar get_dummies (como en entrenamiento)
         input_encoded = pd.get_dummies(input_df, 
                                      columns=['bike_brand', 'gear_brand'], 
-                                     drop_first=drop_first)
+                                     drop_first=True)
 
         # 3. Lista de columnas esperadas (EXCLUYENDO price_usd)
         expected_columns = [col for col in original_columns if col != 'price_usd']
