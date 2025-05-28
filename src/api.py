@@ -3,6 +3,7 @@ from flask_cors import CORS  # Importa CORS
 import pandas as pd
 import pickle
 import os
+import json
 
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
@@ -11,12 +12,17 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # Cargar el modelo
 try:
+    # Cargar modelo
     with open('modelo_bicicletas.pkl', 'rb') as f:
-        model_data = pickle.load(f)
-    model = model_data['model']
-    original_columns = model_data['original_columns']
-    categorical_mapping = model_data['categorical_mapping']
-    drop_first = model_data['drop_first']
+        model = pickle.load(f)
+
+    # Cargar metadatos
+    with open('metadata.json', 'r', encoding='utf-8') as f:
+        metadata = json.load(f)
+
+    original_columns = metadata['original_columns']
+    categorical_mapping = metadata['categorical_mapping']
+    drop_first = metadata['drop_first']
 except Exception as e:
     print(f"Error cargando el modelo: {e}")
     model = None

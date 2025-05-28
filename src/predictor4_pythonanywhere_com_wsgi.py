@@ -96,7 +96,7 @@ def application(environ, start_response):
 # may need to rename it during the import:
 #
 #
-#import sys
+import sys
 #
 ## The "/home/predictor4" below specifies your home
 ## directory -- the rest should be the directory you uploaded your Flask
@@ -104,7 +104,7 @@ def application(environ, start_response):
 ## "git clone git@github.com/myusername/myproject.git"
 ## ...or uploaded files to the directory "myproject", then you should
 ## specify "/home/predictor4/myproject"
-path = '/home/predictor4/DeLibreroo/src/api'
+path = '/home/predictor4/DeLibreroo/src'
 if path not in sys.path:
     sys.path.append(path)
 #
