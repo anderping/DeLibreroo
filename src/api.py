@@ -39,8 +39,7 @@ def predict():
         if model is None:
             raise ValueError("Modelo no cargado")
         
-        print(request.data)
-        data = request.get_json(force=True)  # Usa get_json() en lugar de request.json
+        data = request.get_json()  # Usa get_json() en lugar de request.json
         print("Datos recibidos del frontend:", data)
 
         # Validación de campos
