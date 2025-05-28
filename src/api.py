@@ -6,7 +6,6 @@ import os
 from flask import Flask, request, render_template, jsonify
 import pickle
 import numpy as np
-import pandas as pd
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
