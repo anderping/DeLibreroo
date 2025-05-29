@@ -17,7 +17,7 @@ try:
         model = pickle.load(f)
 
     # Cargar metadatos
-    with open('metadata.json', 'r', encoding='utf-8') as f:
+    with open('/home/ultimointentodespliegue/DeLibreroo/metadata.json', 'r', encoding='utf-8') as f:
         metadata = json.load(f)
 
     original_columns = metadata['original_columns']
