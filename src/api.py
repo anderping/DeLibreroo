@@ -2,30 +2,24 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS  # Importa CORS
 import pandas as pd
 import pickle
-import os
-import json
 
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
 # Cargar el modelo
 try:
-    # Cargar modelo
-    with open('/home/ultimointentodespliegue/DeLibreroo/modelo_bicicletas.pkl', 'rb') as f:
-        model = pickle.load(f)
-
-    # Cargar metadatos
-    with open('/home/ultimointentodespliegue/DeLibreroo/metadata.json', 'r', encoding='utf-8') as f:
-        metadata = json.load(f)
-
-    original_columns = metadata['original_columns']
-    categorical_mapping = metadata['categorical_mapping']
-    drop_first = metadata['drop_first']
+    with open('/home/olimil/bici_project/modelo_bicicletas.pkl', 'rb') as f:
+        model_data = pickle.load(f)
+    model = model_data['model']
+    original_columns = model_data['original_columns']
+    categorical_mapping = model_data['categorical_mapping']
+    drop_first = model_data['drop_first']
 except Exception as e:
     print(f"Error cargando el modelo: {e}")
     model = None
+    drop_first = True  # <-- Asigna un valor por defecto (True o False según tu lógica)
+    original_columns = []  # <-- También inicializa estas variables para evitar otros errores
+    categorical_mapping = {}
 
 # Ruta principal que sirve el formulario HTML
 @app.route('/')
@@ -36,9 +30,6 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        if model is None:
-            raise ValueError("Modelo no cargado")
-        
         data = request.get_json()  # Usa get_json() en lugar de request.json
         print("Datos recibidos del frontend:", data)
 
@@ -57,7 +48,7 @@ def predict():
         # 2. Aplicar get_dummies (como en entrenamiento)
         input_encoded = pd.get_dummies(input_df, 
                                      columns=['bike_brand', 'gear_brand'], 
-                                     drop_first=True)
+                                     drop_first=drop_first)
 
         # 3. Lista de columnas esperadas (EXCLUYENDO price_usd)
         expected_columns = [col for col in original_columns if col != 'price_usd']

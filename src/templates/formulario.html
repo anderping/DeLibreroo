@@ -66,6 +66,13 @@
             font-weight: bold;
             color: #2e7d32;
         }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -156,6 +163,8 @@
         <button type="button" onclick="calculatePrice()">Calcular Precio</button>
     </form>
     
+    <div id="loading" class="loading">Calculando precio...</div>
+
     <div id="result">
         <h2>Precio estimado:</h2>
         <p class="price" id="predicted_price"></p>
@@ -180,6 +189,13 @@
         });
         
         function calculatePrice() {
+        const form = document.getElementById('bikeForm');
+        const resultDiv = document.getElementById('result');
+        const loadingDiv = document.getElementById('loading');
+        
+        // Mostrar carga y ocultar resultados anteriores
+        loadingDiv.style.display = 'block';
+        resultDiv.style.display = 'none';
     const formData = {
         bike_brand: document.getElementById('bike_brand').value,
         frame_material: parseInt(document.getElementById('frame_material').value),
@@ -199,11 +215,10 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
     })
-    .then(async response => {
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-            const text = await response.text();
-            throw new Error("Respuesta inesperada del servidor:\n" + text);
+    .then(response => {
+        loadingDiv.style.display = 'none';
+        if (!response.ok) {
+            return response.json().then(err => { throw new Error(err.error || 'Error del servidor'); });
         }
         return response.json();
     })
@@ -216,12 +231,12 @@
                 style: 'currency',
                 currency: 'EUR'
             });
-        document.getElementById('result').style.display = 'block';
+        resultDiv.style.display = 'block';
     })
     .catch(error => {
+        loadingDiv.style.display = 'none';
         console.error('Error:', error);
         alert('Error: ' + error.message);
-        document.getElementById('result').style.display = 'none';
     });
 }
     </script>
