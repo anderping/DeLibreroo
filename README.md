@@ -1,7 +1,7 @@
 # DeLibreroo a Ciclista
 
 Introducción
-En el dinámico mundo de las bicicletas, encontrar la compañera de ruta perfecta puede ser un desafío. DeBiciclero es un sistema de recomendación inteligente diseñado para conectar a ciclistas con la bicicleta ideal, basándose exclusivamente en sus características técnicas y preferencias de uso.
+En el dinámico mundo de las bicicletas, encontrar la compañera de ruta perfecta puede ser un desafío. DeLibreroo a Ciclista es un sistema de recomendación inteligente diseñado para conectar a ciclistas con la bicicleta ideal, basándose exclusivamente en sus características técnicas y preferencias de uso.
 
 Mediante aprendizaje automático, analizamos componentes como tipo de cuadro, sistema de cambios, peso y geometría para sugerir modelos que se adapten a tu estilo de pedaleo, ya sea para competencia, montaña o paseo urbano.
 
@@ -47,6 +47,6 @@ Simulador Virtual: Comparar geometrías de bicicletas en 3D para ajuste ergonóm
 
 Filtros Avanzados: Búsqueda por clima (ej: "óptima para lluvia") o tipo de terreno.
 
-DeBiciclero no solo recomienda, sino que educa al ciclista sobre cómo cada componente afecta su experiencia. ¡Encuentra tu próxima aventura sobre dos ruedas!
+DeLibreroo a Ciclista no solo recomienda, sino que educa al ciclista sobre cómo cada componente afecta su experiencia. ¡Encuentra tu próxima aventura sobre dos ruedas!
 
 ¿Listo para pedalear hacia la bici perfecta? 🚵‍♂️💨
