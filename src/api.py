@@ -13,7 +13,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # Cargar el modelo
 try:
     # Cargar modelo
-    with open('modelo_bicicletas.pkl', 'rb') as f:
+    with open('/home/ultimointentodespliegue/DeLibreroo/modelo_bicicletas.pkl', 'rb') as f:
         model = pickle.load(f)
 
     # Cargar metadatos
